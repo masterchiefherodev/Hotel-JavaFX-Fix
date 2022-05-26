@@ -1,0 +1,34 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+
+.button {
+	-fx-background-color: #50fa7b;
+}
+.button:hover {
+	-fx-background-color: #48d06d;
+}
+.button:pressed {
+	-fx-background-color: #50fa7b;
+}
+.text-input:error {
+    -fx-text-fill: #bcc2cd;
+    -fx-border-insets: 0;
+    -fx-border-width: 2px;
+    -fx-border-color: red;
+    -fx-border-style: hidden hidden solid hidden;
+    -fx-background-color: derive(red, 99%);
+}
+
+.table-row-cell:selected { 
+   -fx-text-background-color: #ff79c6;
+}
+
+.table-row-cell {
+	-fx-text-background-color: #bd93f9;
+	-fx-background-color: #282a36;
+}
+
+.table-view .column-header,
+.table-view .column-header .filler,
+.table-view .column-header-background .filler {
+    -fx-background-color: #bd93f9;
+}
