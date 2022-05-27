@@ -73,6 +73,7 @@ public class NuevaHabitacionController extends BaseController implements Initial
         // Agregar en remoto
         cnHab.insertar(tmpHab);
         // Agregar en local
+        tmpHab.setId(ObjetoControlador.getInstancia().getIndiceHabitacion());
         ObjetoControlador.getInstancia().getArrayHotel().get(indiceHotel).getHabitaciones().add(tmpHab);
         cambiarFXML(event, "ModificarHotel");
       } catch (Exception e) {

@@ -38,13 +38,23 @@ public class HabitacionImplBInterfaz<E> implements IBaseDatos<E> {
     Habitacion tmpHab = (Habitacion) obj;
     int indiceHotel = ObjetoControlador.getInstancia().getIndiceHotel();
     int idHotel = ObjetoControlador.getInstancia().getArrayHotel().get(indiceHotel).getId();
-    PreparedStatement solicitud = Conexion.getInstancia().getInstancia().getCnn().prepareStatement(query);
+    PreparedStatement solicitud = Conexion.getInstancia().getInstancia().getCnn().prepareStatement(query,
+        java.sql.Statement.RETURN_GENERATED_KEYS);
+    ResultSet rs = null;
+
     solicitud.setString(1, tmpHab.getNumero());
     solicitud.setFloat(2, tmpHab.getCosto());
     solicitud.setBoolean(3, tmpHab.isRefrigerador());
     solicitud.setInt(4, tmpHab.getTipo().getIdTipo());
     solicitud.setInt(5, idHotel);
     solicitud.executeUpdate();
+
+    rs = solicitud.getGeneratedKeys();
+    if (rs.next()) {
+      int indiceHabitacion = rs.getInt(1);
+      ObjetoControlador.getInstancia().setIndiceHabitacion(indiceHabitacion);
+    }
+
     solicitud.close();
 
   }
