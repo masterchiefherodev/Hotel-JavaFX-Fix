@@ -1,11 +1,13 @@
 package fes.aragon.controlador;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import fes.aragon.local.ObjetoControlador;
 import fes.aragon.modelo.Habitacion;
 import fes.aragon.modelo.Tipo;
+import fes.aragon.modelo.VerificadorStrings;
 import fes.aragon.modelo.implementacion.HabitacionImplBInterfaz;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -37,21 +39,45 @@ public class NuevaHabitacionController extends BaseController implements Initial
 
   @FXML
   void crearHabitacion(ActionEvent event) {
+    ArrayList<String> errores = new ArrayList<String>(); // Array de posibles errores en la verificacion de Strings
+    int indiceHotel = ObjetoControlador.getInstancia().getIndiceHotel();
+    Habitacion tmpHab = new Habitacion();
+    tmpHab.setNumero(this.txtNumero.getText());
     try {
-      int indiceHotel = ObjetoControlador.getInstancia().getIndiceHotel();
-      Habitacion tmpHab = new Habitacion();
-      tmpHab.setNumero(this.txtNumero.getText());
-      tmpHab.setCosto(Float.parseFloat(txtCosto.getText()));
-      tmpHab.setRefrigerador(chkRefrigerador.isSelected());
+      tmpHab.setCosto(Float.parseFloat(this.txtCosto.getText()));
+    } catch (Exception e) {
+      errores.add("El costo solo acepta numeros de punto flotante");
+    }
+    tmpHab.setRefrigerador(chkRefrigerador.isSelected());
+    try {
       tmpHab.getTipo().setTipo(cmbTipo.getValue().getTipo());
       tmpHab.getTipo().setIdTipo(cmbTipo.getValue().getIdTipo());
-      cnHab.insertar(tmpHab);
-      ObjetoControlador.getInstancia().getArrayHotel().get(indiceHotel).getHabitaciones().add(tmpHab);
-      cambiarFXML(event, "ModificarHotel");
     } catch (Exception e) {
-      // TODO Auto-generated catch block
-      ventanaEmergente("Error", "No se ha insertado",
-          "No se ha podido insertar la habitación consulte con un programador");
+      errores.add("Debe seleccionar un tipo");
+    }
+
+    if (!VerificadorStrings.verificarNombre(tmpHab.getNumero())) {
+      errores.add("El Numero de habitacion no es valido");
+    }
+    if (errores.size() > 0) {
+      String contenido = "";
+      for (String error : errores) {
+        contenido = contenido + error + "\n";
+      }
+      // Desplagar ventana emetgente con logs (errores)
+      ventanaEmergente("Errores", "Erroes", contenido);
+      // Limpia el array para la siguiente comprobación
+      errores = new ArrayList<String>();
+    } else {
+      try {
+        // Agregar en remoto
+        cnHab.insertar(tmpHab);
+        // Agregar en local
+        ObjetoControlador.getInstancia().getArrayHotel().get(indiceHotel).getHabitaciones().add(tmpHab);
+        cambiarFXML(event, "ModificarHotel");
+      } catch (Exception e) {
+        ventanaEmergente("Error", "Error al agregar habitacion", "No se ha agregado la habitación");
+      }
     }
   }
 

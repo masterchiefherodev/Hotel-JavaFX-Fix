@@ -56,6 +56,14 @@ public class VerificadorStrings {
   }
 
   public static boolean verificarRFC(String rfcParam) {
+    if (rfcParam == null || rfcParam.equals(null) || rfcParam.isEmpty() || rfcParam.isBlank()) {
+      return false;
+    }
+    if (rfcParam.length() < 5) {
+      return false;
+    } else if (!rfcParam.matches("[a-zA-Z0-9]*")) {
+      return false;
+    }
     return true;
   }
 
