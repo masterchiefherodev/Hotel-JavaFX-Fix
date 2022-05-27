@@ -32,14 +32,18 @@ public class HabitacionImplBInterfaz<E> implements IBaseDatos<E> {
   @Override
   public void insertar(E obj) throws Exception {
     // TODO Auto-generated method stub
+    // insert into habitaciones(numero,costo,refrigerador,id_tps,id_htl)
+    // values('A2',23.23,true,1,1);
     String query = "insert into habitaciones(numero,costo,refrigerador,id_tps,id_htl) values(?,?,?,?,?);";
-    Habitacion tmpHab = new Habitacion();
+    Habitacion tmpHab = (Habitacion) obj;
+    int indiceHotel = ObjetoControlador.getInstancia().getIndiceHotel();
+    int idHotel = ObjetoControlador.getInstancia().getArrayHotel().get(indiceHotel).getId();
     PreparedStatement solicitud = Conexion.getInstancia().getInstancia().getCnn().prepareStatement(query);
     solicitud.setString(1, tmpHab.getNumero());
     solicitud.setFloat(2, tmpHab.getCosto());
     solicitud.setBoolean(3, tmpHab.isRefrigerador());
-    solicitud.setInt(4, ObjetoControlador.getInstancia().getTipos().indexOf(tmpHab.getTipo()));
-    solicitud.setInt(5, ObjetoControlador.getInstancia().getIdHotel());
+    solicitud.setInt(4, tmpHab.getTipo().getIdTipo());
+    solicitud.setInt(5, idHotel);
     solicitud.executeUpdate();
     solicitud.close();
 

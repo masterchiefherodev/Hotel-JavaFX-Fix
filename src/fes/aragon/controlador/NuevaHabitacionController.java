@@ -33,22 +33,25 @@ public class NuevaHabitacionController extends BaseController implements Initial
   private TextField txtCosto;
 
   @FXML
-  private TextField txtNombre;
+  private TextField txtNumero;
 
   @FXML
   void crearHabitacion(ActionEvent event) {
     try {
+      int indiceHotel = ObjetoControlador.getInstancia().getIndiceHotel();
       Habitacion tmpHab = new Habitacion();
-      tmpHab.setNumero(txtNombre.getText());
+      tmpHab.setNumero(this.txtNumero.getText());
       tmpHab.setCosto(Float.parseFloat(txtCosto.getText()));
       tmpHab.setRefrigerador(chkRefrigerador.isSelected());
-      // tmpHab.setTipo(cmbTipo.getSelectionModel().getSelectedItem());
       tmpHab.getTipo().setTipo(cmbTipo.getValue().getTipo());
       tmpHab.getTipo().setIdTipo(cmbTipo.getValue().getIdTipo());
       cnHab.insertar(tmpHab);
+      ObjetoControlador.getInstancia().getArrayHotel().get(indiceHotel).getHabitaciones().add(tmpHab);
+      cambiarFXML(event, "ModificarHotel");
     } catch (Exception e) {
       // TODO Auto-generated catch block
-      e.printStackTrace();
+      ventanaEmergente("Error", "No se ha insertado",
+          "No se ha podido insertar la habitación consulte con un programador");
     }
   }
 
@@ -57,11 +60,12 @@ public class NuevaHabitacionController extends BaseController implements Initial
     cambiarFXML(event, "ModificarHabitacion");
   }
 
-  HabitacionImplBInterfaz<Habitacion> cnHab = new HabitacionImplBInterfaz<>();
-
   @Override
   public void initialize(URL arg0, ResourceBundle arg1) {
-    // TODO Auto-generated method stub
     cmbTipo.setItems(ObjetoControlador.getInstancia().getTipos());
   }
+
+  // Objetos queries
+  HabitacionImplBInterfaz<Habitacion> cnHab = new HabitacionImplBInterfaz<>();
+
 }

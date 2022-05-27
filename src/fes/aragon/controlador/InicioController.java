@@ -151,7 +151,6 @@ public class InicioController extends BaseController implements Initializable {
     if (ObjetoControlador.getInstancia().getArrayHotel().isEmpty()) {
       // Si el array de Hotel esta vacio cargar esta habilitado y agregar y modificar
       // están deshabilitados
-      System.out.println("Example");
       this.btnCargar.setDisable(false);
       this.btnAgregar.setDisable(true);
       this.btnModificar.setDisable(true);

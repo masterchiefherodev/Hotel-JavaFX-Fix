@@ -47,7 +47,7 @@ public class ModificarHabitacionesController extends BaseController implements I
 
   @FXML
   void agregarHabitacion(ActionEvent event) {
-
+    cambiarFXML(event, "NuevaHabitacion");
   }
 
   @FXML
