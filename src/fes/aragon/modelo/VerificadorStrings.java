@@ -26,7 +26,7 @@ public class VerificadorStrings {
     }
     dir = dir.trim();
     dir = dir.replaceAll(" ", "");
-    if (dir.length() < 5) {
+    if (dir.length() < 3) {
       return false;
     } else if (!dir.matches("[a-zA-Z0-9]*")) {
       return false;
