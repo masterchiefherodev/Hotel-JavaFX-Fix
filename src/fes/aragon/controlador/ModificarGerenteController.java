@@ -71,7 +71,7 @@ public class ModificarGerenteController extends BaseController implements Initia
       errores.add("El Apellido Materno no es valido");
     }
     if (!VerificadorStrings.verificarRFC(gerenteTmp.getRfc())) {
-      errores.add("El RFC no es valido");
+      errores.add("El RFC no es valido (5 digitos)");
     }
     if (!VerificadorStrings.verificarCorreo(gerenteTmp.getCorreo())) {
       errores.add("El correo no es valido");
