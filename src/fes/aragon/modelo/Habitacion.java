@@ -8,8 +8,8 @@ public class Habitacion implements Serializable {
   private String numero;
   private float costo;
   private boolean refrigerador;
-  private String tipo;
   private Integer id;
+  private Tipo Tipo = new Tipo();
   private Integer idHotel;
 
   public Habitacion() {
@@ -39,14 +39,6 @@ public class Habitacion implements Serializable {
     this.refrigerador = refrigerador;
   }
 
-  public String getTipo() {
-    return tipo;
-  }
-
-  public void setTipo(String tipo) {
-    this.tipo = tipo;
-  }
-
   public Integer getId() {
     return id;
   }
@@ -63,10 +55,12 @@ public class Habitacion implements Serializable {
     this.idHotel = idHotel;
   }
 
-  @Override
-  public String toString() {
-    return "Habitacion [numero=" + numero + ", costo=" + costo + ", refrigerador=" + refrigerador + ", tipo=" + tipo
-        + "]";
+  public Tipo getTipo() {
+    return Tipo;
+  }
+
+  public void setTipo(Tipo tipo) {
+    Tipo = tipo;
   }
 
 }

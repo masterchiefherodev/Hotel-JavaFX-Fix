@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import fes.aragon.local.ObjetoControlador;
 import fes.aragon.modelo.Gerente;
 import fes.aragon.modelo.Hotel;
+import fes.aragon.modelo.Tipo;
 import fes.aragon.modelo.implementacion.HabitacionImplBInterfaz;
 import fes.aragon.modelo.implementacion.HotelImpBInterfaz;
 import javafx.application.Platform;
@@ -157,8 +158,8 @@ public class InicioController extends BaseController implements Initializable {
       this.btnEliminar.setDisable(true);
 
       try {
-        ArrayList<String> tipos = cnHabitacion.buscarTipo();
-        for (String tipo : tipos) {
+        ArrayList<Tipo> tipos = cnHabitacion.buscarTipo();
+        for (Tipo tipo : tipos) {
           ObjetoControlador.getInstancia().getTipos().add(tipo);
         }
       } catch (Exception e) {

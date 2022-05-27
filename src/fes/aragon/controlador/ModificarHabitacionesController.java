@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import fes.aragon.local.ObjetoControlador;
 import fes.aragon.modelo.Habitacion;
 import fes.aragon.modelo.Hotel;
+import fes.aragon.modelo.Tipo;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -39,14 +40,14 @@ public class ModificarHabitacionesController extends BaseController implements I
   private TableColumn<Habitacion, Boolean> clmRefrigerador;
 
   @FXML
-  private TableColumn<Habitacion, String> clmTipo;
+  private TableColumn<Habitacion, Tipo> clmTipo;
 
   @FXML
   private TableView<Habitacion> tblTabla;
 
   @FXML
   void agregarHabitacion(ActionEvent event) {
-	  cambiarFXML(event, "NuevaHabitacion");
+
   }
 
   @FXML

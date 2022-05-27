@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import fes.aragon.local.ObjetoControlador;
 import fes.aragon.modelo.Habitacion;
+import fes.aragon.modelo.Tipo;
 import fes.aragon.modelo.implementacion.HabitacionImplBInterfaz;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,7 +27,7 @@ public class NuevaHabitacionController extends BaseController implements Initial
   private CheckBox chkRefrigerador;
 
   @FXML
-  private ComboBox<String> cmbTipo;
+  private ComboBox<Tipo> cmbTipo;
 
   @FXML
   private TextField txtCosto;
@@ -41,7 +42,9 @@ public class NuevaHabitacionController extends BaseController implements Initial
       tmpHab.setNumero(txtNombre.getText());
       tmpHab.setCosto(Float.parseFloat(txtCosto.getText()));
       tmpHab.setRefrigerador(chkRefrigerador.isSelected());
-      tmpHab.setTipo(cmbTipo.getSelectionModel().getSelectedItem());
+      // tmpHab.setTipo(cmbTipo.getSelectionModel().getSelectedItem());
+      tmpHab.getTipo().setTipo(cmbTipo.getValue().getTipo());
+      tmpHab.getTipo().setIdTipo(cmbTipo.getValue().getIdTipo());
       cnHab.insertar(tmpHab);
     } catch (Exception e) {
       // TODO Auto-generated catch block
